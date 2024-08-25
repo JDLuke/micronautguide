@@ -1,0 +1,6 @@
+team:
+  name: 'Steelers'
+  color: 'black'
+  player-names:
+    - 'Joey Joe Joe'
+    - 'Guy'
