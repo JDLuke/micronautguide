@@ -1,4 +1,4 @@
-app:
+endpoints.all.path: '/endpoints/'
 
 team:
   name: 'Steelers'
