@@ -29,13 +29,17 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: Extract version number
+      id: extract_version
+      run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+
     - name: Create Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       run: >-
         gh release create ${{ github.ref_name }}
-        "target/micronautguide-0.0.3.jar#Micronaut Guide"
+        "target/micronautguide-${{ env.version }}.jar#Micronaut Guide"
         --generate-notes
         --title "Version ${{ github.ref_name }}"      
 
