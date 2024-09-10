@@ -18,9 +18,9 @@ jobs:
         run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
       - name: Download artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
-          name: my-artifact
+          name: target/micronautguide-${{ env.VERSION }}.jar
 
       - name: Create GitHub Release
         id: create_release
@@ -40,5 +40,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: target/micronautguide-${{ env.VERSION }}.jar
-          asset_name: micronautguide.jar
+          asset_name: micronautguide-${{ env.VERSION }}.jar
           asset_content_type: application/java-archive
