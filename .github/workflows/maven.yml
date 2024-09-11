@@ -27,6 +27,16 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+
+    - name: Build and run tests
+      run: mvn test --batch-mode --fail-at-end
+
+    - name: Publish Surefire Report
+      if: success() || failure()
+      uses: scacap/action-surefire-report@v1
+      with:
+        report_paths: '**/target/surefire-reports/TEST-*.xml'
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Extract version number
