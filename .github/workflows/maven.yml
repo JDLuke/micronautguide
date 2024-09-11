@@ -37,14 +37,32 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
+    - name: Bump version
+      id: bump
+      uses: mickem/gh-action-bump-maven-version@v1
+      with:
+        pom-file: 'pom.xml'
+        bump-command: 'mvn versions:set -DnewVersion=@NEW_VERSION@'
+
     - name: Build and run tests
       run: mvn test --batch-mode --fail-at-end
 
+    - name: Commit and push changes
+      if: success()
+      run: |
+        git config --global user.name 'github-actions'
+        git config --global user.email 'github-actions@github.com'
+        git add pom.xml
+        git commit -m "Bump version to ${{ steps.bump.outputs.new_version }} for successful build."
+        git push origin main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Publish Surefire Report
-      if: success() || failure()
       uses: scacap/action-surefire-report@v1
       with:
         report_paths: '**/target/surefire-reports/TEST-*.xml'
+
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
