@@ -32,8 +32,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - run: git switch main
-
+#    - run: git switch main
+#
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
