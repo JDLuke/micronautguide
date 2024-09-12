@@ -1,0 +1,96 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Java CI with Maven
+
+on:
+  release:
+#    branches: [ "main" ]
+
+permissions:
+  contents: write
+  issues: write
+  deployments: write
+  pages: write
+  packages: write
+  checks: write
+  statuses: write
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - run: git switch main
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Cache local Maven repository
+      uses: actions/cache@v4
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+
+    - name: Build and run tests
+      run: mvn test --batch-mode --fail-at-end
+
+    - name: Bump version
+      id: bump
+      uses: mickem/gh-action-bump-maven-version@v1
+      with:
+        pom-file: 'pom.xml'
+        bump-command: 'mvn versions:set -DnewVersion=@NEW_VERSION@'
+
+    - name: Publish Surefire Report
+      uses: scacap/action-surefire-report@v1
+      with:
+        report_paths: '**/target/surefire-reports/TEST-*.xml'
+
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+
+    - name: Extract version number
+      id: extract_version
+      run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: micronautguide-${{ env.VERSION }}
+        path: target/micronautguide-${{ env.VERSION }}.jar
+
+    - name: Create GitHub Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ env.VERSION }}
+        release_name: Release ${{ env.VERSION }}
+        body: |
+          Release notes for ${{ env.VERSION }}
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: target/micronautguide-${{ env.VERSION }}.jar
+        asset_name: micronautguide-${{ env.VERSION }}.jar
+        asset_content_type: application/java-archive
