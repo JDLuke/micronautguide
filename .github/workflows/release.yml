@@ -54,7 +54,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: micronautguide-${{ env.VERSION }}
-        path: target/micronautguide-${{ env.VERSION }}.jar
+        path: target/
 
     - name: Create GitHub Release
       id: create_release
