@@ -85,8 +85,7 @@ jobs:
     steps:
       - env:
           build_version: ${{ needs.build.outputs.build_version }}
-
-      - run: env
+        run: env
 
       - uses: actions/checkout@v4
 
