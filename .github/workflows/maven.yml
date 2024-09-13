@@ -95,7 +95,7 @@ jobs:
       - name: Extract version number
         id: extract_version
         run: |
-          echo "build version is ${{build_version}}"
+          echo "build version is ${{env.build_version}}"
 
       - name: Download JAR Artifact
         id: download_artifact
@@ -109,10 +109,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ build_version }}
-          release_name: Release ${{ build_version }}
+          tag_name: ${{ env.build_version }}
+          release_name: Release ${{ env.build_version }}
           body: |
-            Release notes for ${{ build_version }}
+            Release notes for ${{ env.build_version }}
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
@@ -120,6 +120,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: target/micronautguide-${{ build_version }}.jar
-          asset_name: micronautguide-${{ build_version }}.jar
+          asset_path: target/micronautguide-${{ env.build_version }}.jar
+          asset_name: micronautguide-${{ env.build_version }}.jar
           asset_content_type: application/java-archive
