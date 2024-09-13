@@ -54,8 +54,8 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         path: target/
-
-#        name: micronautguide-${{ env.VERSION }}
+        name: micronautguide-${{ env.VERSION }}
+        github-token: ${{ secrets.GH_PAT }}
 
 
     - name: Create GitHub Release
