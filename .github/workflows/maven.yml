@@ -27,6 +27,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      build_version: ${{ steps.extract_version.outputs.build_version }}
 
     steps:
     - name: Check out from Version Control
@@ -66,7 +68,9 @@ jobs:
 
     - name: Extract version number
       id: extract_version
-      run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+      run: |
+        echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+        echo "::set-output name=build_version::${{env.VERSION}}
 
     - name: Upload jar
       uses: actions/upload-artifact@v4
@@ -90,14 +94,13 @@ jobs:
 
       - name: Extract version number
         id: extract_version
-        run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+        run: echo "VERSION=${{ needs.build.outputs.build_version }}" >> $GITHUB_ENV
+#        run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
       - name: Download JAR Artifact
         uses: actions/download-artifact@v4
         with:
           path: target/
-          name: micronautguide-${{ env.VERSION }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create GitHub Release
         id: create_release
