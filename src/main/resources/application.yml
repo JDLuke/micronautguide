@@ -1,0 +1,12 @@
+endpoints.all.path: '/endpoints/'
+
+team:
+  name: 'Steelers'
+  color: 'black'
+  player-names:
+    - 'Joey Joe Joe'
+    - 'Guy'
+  team-admin:
+    manager: 'me'
+    coach: 'me, too'
+    president: 'I got this'
