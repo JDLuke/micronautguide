@@ -67,8 +67,13 @@ jobs:
     - name: Extract version number
       id: extract_version
       run: |
+        env
         echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
-        echo "build_version=${{VERSION}}" >> "$GITHUB_OUTPUT"
+        echo "build_version=${{env.VERSION}}" >> "$GITHUB_OUTPUT"
+        echo Env: ${{env.VERSION}}
+        echo Var: $VERSION
+        echo $GITHUB_OUTPUT
+        env
 
     - name: Upload jar
       uses: actions/upload-artifact@v4
