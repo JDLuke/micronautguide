@@ -37,4 +37,8 @@ class MicronautguideTest {
     }
 
 
+    @Test
+    public void validateApplication() {
+        Application.main(new String[0]);
+    }
 }
