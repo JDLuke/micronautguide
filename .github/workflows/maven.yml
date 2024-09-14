@@ -27,6 +27,9 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      build_version: ${{ steps.extract_version.outputs.build_version }}
+
 
     steps:
     - name: Check out from Version Control
@@ -66,15 +69,16 @@ jobs:
     - name: Build
       run: mvn clean package
 
+
     - name: Extract version number
       id: extract_version
       run: |
         VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         echo "VERSION=$VERSION" >> $GITHUB_ENV
-        echo build_version=$VERSION >> "$GITHUB_OUTPUT"
-        echo Env: ${{env.VERSION}}
+        echo "build_version=$VERSION" >> $GITHUB_OUTPUT
         echo "Version set to: $VERSION"
-        
+        # This is how the output is set correctly for the job
+        echo "build_version=${{ steps.extract_version.outputs.build_version }}"
 
     - name: Upload jar
       uses: actions/upload-artifact@v4
