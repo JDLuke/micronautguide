@@ -152,6 +152,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: micronautguide-${{ needs.build.outputs.build_version }}.jar
+          asset_path: micronautguide-${{ needs.build.outputs.build_version }}/micronautguide-${{ needs.build.outputs.build_version }}.jar
           asset_name: micronautguide-${{ needs.build.outputs.build_version }}.jar
           asset_content_type: application/java-archive
