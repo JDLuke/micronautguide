@@ -101,6 +101,12 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Download build
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ./target/
+
       - name: Use version from build
         run: echo "The build version is ${{ needs.build.outputs.build_version }}"
 
