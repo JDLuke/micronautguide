@@ -48,19 +48,29 @@ jobs:
           ${{ runner.os }}-maven-
 
     - name: Build and run tests
-      run: mvn test --batch-mode --fail-at-end
+      run: mvn clean test jacoco:report --batch-mode --fail-at-end
 
     - name: Publish Surefire Report
       uses: scacap/action-surefire-report@v1
       with:
         report_paths: '**/target/surefire-reports/TEST-*.xml'
 
+    - name: Upload coverage report
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git fetch
+        git checkout gh-pages || git checkout --orphan gh-pages
+        cp -r target/site/jacoco/* .
+        git add .
+        git commit -m "Deploy JaCoCo report"
+        git push origin gh-pages --force
+
   build:
     needs: test
     runs-on: ubuntu-latest
     outputs:
       build_version: ${{ steps.extract_version.outputs.build_version }}
-
 
     steps:
     - name: Check out from Version Control
@@ -88,12 +98,10 @@ jobs:
         pom-file: 'pom.xml'
         bump-command: 'mvn versions:set -DnewVersion=@NEW_VERSION@'
 
-
-    - name: Build
+    - name: Build with updated version
       run: mvn clean package
 
-
-    - name: Extract version number
+    - name: Extract version number and store as output
       id: extract_version
       run: |
         VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
@@ -114,25 +122,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
-      - uses: actions/checkout@v4
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: maven
-
       - name: Download build
         uses: actions/download-artifact@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: What is in there
-        run: ls -lart
-
-      - name: Use version from build
+      - name: Get version ${{ needs.build.outputs.build_version }} from build step
         run: echo "The build version is ${{ needs.build.outputs.build_version }}"
 
       - name: Create GitHub Release
