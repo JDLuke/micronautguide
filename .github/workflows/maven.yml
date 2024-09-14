@@ -25,11 +25,8 @@ permissions:
   statuses: write
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-    outputs:
-      build_version: ${{ steps.extract_version.outputs.build_version }}
-
 
     steps:
     - name: Check out from Version Control
@@ -57,6 +54,32 @@ jobs:
       uses: scacap/action-surefire-report@v1
       with:
         report_paths: '**/target/surefire-reports/TEST-*.xml'
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      build_version: ${{ steps.extract_version.outputs.build_version }}
+
+
+    steps:
+    - name: Check out from Version Control
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Cache local Maven repository
+      uses: actions/cache@v4
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
 
     - name: Bump version
       id: bump
@@ -105,6 +128,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: What is in there
+        run: ls -lart
 
       - name: Use version from build
         run: echo "The build version is ${{ needs.build.outputs.build_version }}"
