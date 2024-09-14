@@ -65,6 +65,7 @@ jobs:
         pom-file: 'pom.xml'
         bump-command: 'mvn versions:set -DnewVersion=@NEW_VERSION@'
 
+
     - name: Build
       run: mvn clean package
 
@@ -95,6 +96,8 @@ jobs:
         run: env
 
       - uses: actions/checkout@v4
+        with:
+          ref: ${{env.GITHUB_REF_NAME}}
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
