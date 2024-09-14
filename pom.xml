@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>example.micronaut</groupId>
     <artifactId>micronautguide</artifactId>
-    <version>0.0.42</version>
+    <version>0.0.42.0</version>
     <packaging>${packaging}</packaging>
 
     <parent>
@@ -30,7 +30,7 @@
                     <plugin>
                         <groupId>org.graalvm.buildtools</groupId>
                         <artifactId>native-maven-plugin</artifactId>
-                        <version>0.10.3</version>
+                        <version>0.10.2</version>
                         <extensions>true</extensions>
                         <executions>
                             <execution>
