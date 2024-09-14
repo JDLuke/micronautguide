@@ -105,7 +105,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path: ./target/
 
       - name: Use version from build
         run: echo "The build version is ${{ needs.build.outputs.build_version }}"
@@ -127,6 +126,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: target/micronautguide-${{ needs.build.outputs.build_version }}.jar
+          asset_path: micronautguide-${{ needs.build.outputs.build_version }}.jar
           asset_name: micronautguide-${{ needs.build.outputs.build_version }}.jar
           asset_content_type: application/java-archive
