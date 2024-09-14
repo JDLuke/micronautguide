@@ -106,7 +106,20 @@ jobs:
       - name: Extract version number
         id: extract_version
         run: |
-          echo "build version is ${{env.build_version}}"
+          env
+          echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+          echo "build_version=${{env.VERSION}}" >> "$GITHUB_OUTPUT"
+          echo Env: ${{env.VERSION}}
+          echo Var: $VERSION
+          echo GHO: $GITHUB_OUTPUT
+          echo GHE: $GITHUB_ENV
+          env
+
+#      - name: Extract version number
+#        id: extract_version
+#        run: |
+#          echo "build version is ${{env.build_version}}"
+
 
       - name: Download JAR Artifact
         id: download_artifact
