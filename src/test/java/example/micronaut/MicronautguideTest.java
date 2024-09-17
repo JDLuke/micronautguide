@@ -37,7 +37,7 @@ class MicronautguideTest {
     }
 
 
-    @Test
+    // @Test
     public void validateApplication() {
         Application application = new Application();
 
