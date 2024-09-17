@@ -1,0 +1,45 @@
+name: Release Candidate Build
+
+on:
+  workflow_run:
+    workflows: ["Unit Tests"]
+    types:
+      - completed
+
+jobs:
+  build_release_candidate:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Bump version
+        id: bump
+        uses: mickem/gh-action-bump-maven-version@v1
+        with:
+          pom-file: 'pom.xml'
+          bump-command: 'mvn versions:set -DnewVersion=@NEW_VERSION@'
+
+      - name: Build release candidate
+        run: mvn clean package
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-candidate-jar
+          path: target/*.jar
+
+      - name: Set version output
+        id: version
+        run: |
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"

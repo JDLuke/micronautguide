@@ -1,0 +1,33 @@
+name: Component Tests
+
+on:
+  workflow_run:
+    workflows: ["Release Candidate Build"]
+    types:
+      - completed
+
+jobs:
+  component_tests:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Download Release Candidate
+        uses: actions/download-artifact@v4
+        with:
+          name: release-candidate-jar
+
+      - name: Set up environment for component testing
+        # Set up your component test environment here
+        run: |
+          echo "Setting up component test environment..."
+
+      - name: Run component tests
+        run: |
+          # Replace with your component test command
+          echo "Running component tests..."
+
+      - name: Set status
+        run: echo "COMPONENT_TESTS_PASSED=true" >> $GITHUB_ENV

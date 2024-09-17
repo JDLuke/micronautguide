@@ -1,4 +1,3 @@
-endpoints.all.path: '/endpoints/'
 
 team:
   name: 'Steelers'
@@ -10,3 +9,8 @@ team:
     manager: 'me'
     coach: 'me, too'
     president: 'I got this'
+
+endpoints:
+  all:
+    port: 8080
+    path: '/endpoints/'
