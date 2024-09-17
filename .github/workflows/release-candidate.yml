@@ -34,15 +34,15 @@ jobs:
       - name: Build release candidate
         run: mvn clean package
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-candidate-jar
-          path: target/*.jar
-
       - name: Set version output
         id: version
         run: |
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-candidate-jar
+          path: target/*.jar

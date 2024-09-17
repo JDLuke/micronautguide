@@ -17,7 +17,8 @@ jobs:
       - name: Download Release Candidate
         uses: actions/download-artifact@v4
         with:
-          name: release-candidate-jar
+          name: micronautguide-${{ env.VERSION }}
+          path: target/micronautguide-${{ env.VERSION }}.jar
 
       - name: Create GitHub Release
         id: create_release
