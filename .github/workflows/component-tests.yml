@@ -12,11 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Retreive version
+      - name: Retrieve version
         uses: actions/download-artifact@v4
         with:
           name: version
-          path: version.txt
 
       - name: Display version
         run: cat version.txt

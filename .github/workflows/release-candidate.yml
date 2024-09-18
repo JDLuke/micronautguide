@@ -42,7 +42,7 @@ jobs:
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Write version.txt
+      - name: Write version.txt0
         run: echo $VERSION > version.txt
 
       - name: Display version.txt
