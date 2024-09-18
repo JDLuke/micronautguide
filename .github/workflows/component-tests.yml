@@ -11,10 +11,24 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
+
+      - name: Retreive version
+        uses: actions/download-artifact@v4
+        with:
+          name: version
+          path: version.txt
+
+      - name: Display version
+        run: cat version.txt
+
+      - name: Set version
+        run: VERSION=`cat version.txt`
+
       - name: Debugging
         run: |
           echo github.env.VERSION = ${{github.env.VERSION}}
           echo github.env.version = ${{github.env.version}}
+          echo VERSION = $VERSION
 
       - name: Check out code
         uses: actions/checkout@v4
@@ -22,7 +36,7 @@ jobs:
       - name: Download Release Candidate
         uses: actions/download-artifact@v4
         with:
-          name: micronautguide-${{ github.env.VERSION }}
+          name: micronautguide-${{VERSION}
           path: target/micronautguide-${{ github.env.VERSION }}.jar
 
       - name: Cache local Maven repository

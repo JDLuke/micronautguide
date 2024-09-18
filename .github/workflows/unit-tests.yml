@@ -40,4 +40,4 @@ jobs:
       - name: Set status
         run: |
           echo "TESTS_PASSED=true" >> $GITHUB_ENV
-          echo "TESTS_PASSED=true" >> $env:$GITHUB_OUTPUT
+          echo "TESTS_PASSED=true" >> $GITHUB_OUTPUT

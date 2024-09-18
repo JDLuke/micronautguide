@@ -38,11 +38,25 @@ jobs:
         id: version
         run: |
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo VERSION: $VERSION
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Write version.txt
+        run: echo $VERSION > version.txt
+
+      - name: Display version.txt
+        run: cat version.txt
+
+      - name: Store version
+        uses: actions/upload-artifact@v4
+        with:
+          name: version
+          path: version.txt
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: release-candidate-jar
           path: target/*.jar
+
