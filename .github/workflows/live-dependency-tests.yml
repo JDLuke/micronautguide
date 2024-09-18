@@ -27,7 +27,7 @@ jobs:
       - name: Download Release Candidate
         uses: actions/download-artifact@v4
         with:
-          name: micronautguide-${{ github.env.VERSION }}
+          name: release-candidate-jar
           path: target/micronautguide-${{ github.env.VERSION }}.jar
 
       - name: Run live dependency tests

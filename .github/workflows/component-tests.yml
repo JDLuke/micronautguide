@@ -15,8 +15,7 @@ jobs:
       - name: Retrieve version
         uses: actions/download-artifact@v4
         with:
-          name: version
-          path: ./
+          name: version-marker
 
       - name: Display version
         run: cat version.txt
