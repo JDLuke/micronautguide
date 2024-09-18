@@ -16,6 +16,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: version
+          path: ./
 
       - name: Display version
         run: cat version.txt
