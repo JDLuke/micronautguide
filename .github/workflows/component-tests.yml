@@ -11,6 +11,11 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
+      - name: Debugging
+        run: |
+          echo github.env.VERSION = ${{github.env.VERSION}}
+          echo github.env.version = ${{github.env.version}}
+
       - name: Check out code
         uses: actions/checkout@v4
 
@@ -40,4 +45,6 @@ jobs:
           echo "Running component tests..."
 
       - name: Set status
-        run: echo "COMPONENT_TESTS_PASSED=true" >> $GITHUB_ENV
+        run: |
+          echo "COMPONENT_TESTS_PASSED=true" >> $GITHUB_ENV
+          echo "COMPONENT_TESTS_PASSED=true" >> $env:$GITHUB_OUTPUT

@@ -36,4 +36,6 @@ jobs:
           echo "Running live dependency tests..."
 
       - name: Set status
-        run: echo "LIVE_TESTS_PASSED=true" >> $GITHUB_ENV
+        run: |
+          echo "LIVE_TESTS_PASSED=true" >> $GITHUB_ENV
+          echo "LIVE_TESTS_PASSED=true" >> $env:$GITHUB_OUTPUT
