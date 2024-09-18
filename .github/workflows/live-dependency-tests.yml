@@ -6,6 +6,9 @@ on:
     types:
       - completed
 
+permissions:
+  contents: write
+
 jobs:
   live_dependency_tests:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
