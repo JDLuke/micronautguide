@@ -2,6 +2,10 @@ name: Component Tests
 
 on:
   workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
     outputs:
       test-result:
         description: "Result of Component Testing"
@@ -15,27 +19,6 @@ jobs:
       outcome: ${{steps.status.outcome}}
 
     steps:
-
-      - name: Retrieve version
-        uses: actions/download-artifact@v4
-        with:
-          name: version-marker
-
-      - name: Display version
-        run: cat version.txt
-
-      - name: Set version
-        run: VERSION=`cat version.txt`
-
-      - name: Debugging
-        run: |
-          echo github.env.VERSION = ${{github.env.VERSION}}
-          echo github.env.version = ${{github.env.version}}
-          echo VERSION = $VERSION
-
-      - name: Check out code
-        uses: actions/checkout@v4
-
       - name: Download Release Candidate
         uses: actions/download-artifact@v4
         with:

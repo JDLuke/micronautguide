@@ -6,6 +6,9 @@ on:
       version:
         required: true
         type: string
+      app-name:
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -20,11 +23,6 @@ jobs:
         with:
           name: release-candidate-jar
           path: target/
-
-      - name: Diagnose
-        run: |
-          ls -lrt
-          ls -lrt target
 
       - name: Create GitHub Release
         id: create_release
@@ -42,6 +40,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: target/micronautguide-${{inputs.version}}.jar
-          asset_name: micronaut-guide.jar
+          asset_path: target/${{inputs.app-name}}-${{inputs.version}}.jar
+          asset_name: ${{inputs.app-name}}.jar
           asset_content_type: application/java-archive

@@ -19,13 +19,18 @@ jobs:
   component_tests:
     needs: build_candidate
     uses: ./.github/workflows/component-tests.yml
+    with:
+      version: ${{ needs.build_candidate.outputs.version }}
   dependency_tests:
     needs: build_candidate
     uses: ./.github/workflows/live-dependency-tests.yml
+    with:
+      version: ${{ needs.build_candidate.outputs.version }}
   release:
     if: github.ref == 'refs/heads/main'
     needs: [ component_tests, dependency_tests, build_candidate ]
     uses: ./.github/workflows/release.yml
     with:
       version: ${{ needs.build_candidate.outputs.version }}
+      app-name: micronautguide
 

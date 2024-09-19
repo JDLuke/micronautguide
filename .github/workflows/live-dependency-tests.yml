@@ -2,6 +2,10 @@ name: Live Dependency Tests
 
 on:
   workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
     outputs:
       test-result:
         description: "Result of Dependency Testing"
@@ -17,22 +21,11 @@ jobs:
       outcome: ${{steps.status.outcome}}
 
     steps:
-      - name: Check out code
-        uses: actions/checkout@v4
-
-      - name: Cache local Maven repository
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-
       - name: Download Release Candidate
         uses: actions/download-artifact@v4
         with:
           name: release-candidate-jar
-          path: target/micronautguide-${{ github.env.VERSION }}.jar
+          path: target/
 
       - name: Run live dependency tests
         # Add your live dependency testing logic here
