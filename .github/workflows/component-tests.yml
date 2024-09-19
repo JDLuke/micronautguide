@@ -6,10 +6,6 @@ on:
     types:
       - completed
 
-permissions:
-  contents: read
-  actions: read
-  artifacts: read
 
 jobs:
   component_tests:
@@ -21,6 +17,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: version-marker
+          run-id: ${{ github.event.workflow_run.id }}
 
       - name: Display version
         run: cat version.txt
