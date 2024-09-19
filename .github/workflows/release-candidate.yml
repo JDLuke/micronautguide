@@ -2,6 +2,11 @@ name: Release Candidate Build
 
 on:
   workflow_call:
+    outputs:
+      version:
+        description: Updated version for new release
+        value: ${{ jobs.build_release_candidate.outputs.version }}
+
 
 permissions:
   contents: write
@@ -9,6 +14,8 @@ permissions:
 jobs:
   build_release_candidate:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version-output.outputs.version }}
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -30,19 +37,19 @@ jobs:
       - name: Build release candidate
         run: mvn clean package
 
-      - name: Set version output
+      - name: Update version
         id: version
-        run: |
-          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-          echo "VERSION: $VERSION"
-          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+        run: VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
 
       - name: Write version.txt
         run: echo $VERSION > version.txt
 
       - name: Display version.txt
         run: cat version.txt
+
+      - name: Output version
+        id: version-output
+        run: echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Store version
         uses: actions/upload-artifact@v4

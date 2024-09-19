@@ -24,6 +24,8 @@ jobs:
     uses: ./.github/workflows/live-dependency-tests.yml
   release:
     if: github.ref == 'refs/heads/main'
-    needs: [ component_tests, dependency_tests ]
+    needs: [ component_tests, dependency_tests, build_candidate ]
     uses: ./.github/workflows/release.yml
+    with:
+      VERSION: ${{ needs.build_candidate.outputs.version }}
 

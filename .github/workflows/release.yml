@@ -34,8 +34,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ VERSION }}
-          release_name: Release ${{ VERSION }}
+          tag_name: ${{ env.VERSION }}
+          release_name: Release ${{ env.VERSION }}
           body: "Automated release for commit ${{ github.sha }}"
 
       - name: Upload release artifact
