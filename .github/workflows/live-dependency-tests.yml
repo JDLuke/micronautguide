@@ -1,10 +1,7 @@
 name: Live Dependency Tests
 
 on:
-  workflow_run:
-    workflows: ["Component Tests"]
-    types:
-      - completed
+  workflow_call:
 
 permissions:
   contents: write

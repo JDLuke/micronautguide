@@ -1,10 +1,7 @@
 name: Release Candidate Build
 
 on:
-  workflow_run:
-    workflows: ["Unit Tests"]
-    types:
-      - completed
+  workflow_call:
 
 permissions:
   contents: write

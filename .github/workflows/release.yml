@@ -1,10 +1,7 @@
 name: Release
 
 on:
-  workflow_run:
-    workflows: ["Live Dependency Tests"]
-    types:
-      - completed
+  workflow_call:
 
 permissions:
   contents: write

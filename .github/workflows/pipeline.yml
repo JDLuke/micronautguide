@@ -1,0 +1,23 @@
+name: Unit Tests
+
+on:
+  push:  # Run tests on all branches
+    branches: ["**"]
+  pull_request:  # Run tests on PRs targeting any branch
+    branches: ["**"]
+
+permissions:
+  contents: write
+
+jobs:
+  unit_tests:
+    uses: ./.github/workflows/unit-test.yml
+  build_candidate:
+    uses: ./.github/workflows/release-candidate.yml
+  component_tests:
+    uses: ./.github/workflows/component-tests.yml
+  dependency_tests:
+    uses: ./.github/workflows/live-dependency-tests.yml
+  release:
+    uses: ./.github/workflows/release.yml
+

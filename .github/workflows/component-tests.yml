@@ -1,11 +1,7 @@
 name: Component Tests
 
 on:
-  workflow_run:
-    workflows: ["Release Candidate Build"]
-    types:
-      - completed
-
+  workflow_call:
 
 jobs:
   component_tests:
