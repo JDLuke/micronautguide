@@ -39,7 +39,9 @@ jobs:
 
       - name: Update version
         id: version
-        run: VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+        run: | 
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
 
       - name: Write version.txt
         run: echo $VERSION > version.txt
