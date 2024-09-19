@@ -27,5 +27,5 @@ jobs:
     needs: [ component_tests, dependency_tests, build_candidate ]
     uses: ./.github/workflows/release.yml
     with:
-      VERSION: ${{ needs.build_candidate.outputs.version }}
+      version: ${{ needs.build_candidate.outputs.version }}
 
