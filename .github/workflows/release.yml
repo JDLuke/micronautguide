@@ -15,22 +15,16 @@ jobs:
   create_release:
     runs-on: ubuntu-latest
     steps:
-#      - name: Check out code
-#        uses: actions/checkout@v4
-
-      - name: Retrieve version
-        uses: actions/download-artifact@v4
-        with:
-          name: version-marker
-
-      - name: Set version
-        run: VERSION=`cat version.txt`
-
       - name: Download Release Candidate
         uses: actions/download-artifact@v4
         with:
           name: release-candidate-jar
           path: target/
+
+      - name: Diagnose
+        run: |
+          ls -lrt
+          ls -lrt target
 
       - name: Create GitHub Release
         id: create_release
@@ -48,6 +42,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: target/*.jar
+          asset_path: target/micronautguide-${{inputs.version}}.jar
           asset_name: micronaut-guide.jar
           asset_content_type: application/java-archive
