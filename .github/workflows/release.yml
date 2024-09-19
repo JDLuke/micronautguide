@@ -11,9 +11,16 @@ jobs:
   create_release:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
-        uses: actions/checkout@v4
+#      - name: Check out code
+#        uses: actions/checkout@v4
 
+      - name: Retrieve version
+        uses: actions/download-artifact@v4
+        with:
+          name: version-marker
+
+      - name: Set version
+        run: VERSION=`cat version.txt`
 
       - name: Download Release Candidate
         uses: actions/download-artifact@v4
@@ -27,8 +34,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.sha }}
-          release_name: Release ${{ github.sha }}
+          tag_name: ${{ VERSION }}
+          release_name: Release ${{ VERSION }}
           body: "Automated release for commit ${{ github.sha }}"
 
       - name: Upload release artifact
@@ -38,5 +45,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: target/*.jar
-          asset_name: your-artifact.jar
+          asset_name: micronaut-guide.jar
           asset_content_type: application/java-archive
