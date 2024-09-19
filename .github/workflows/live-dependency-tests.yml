@@ -2,6 +2,10 @@ name: Live Dependency Tests
 
 on:
   workflow_call:
+    outputs:
+      test-result:
+        description: "Result of Dependency Testing"
+        value: ${{ jobs.test.outputs.outcome }}
 
 permissions:
   contents: write
@@ -9,6 +13,9 @@ permissions:
 jobs:
   live_dependency_tests:
     runs-on: ubuntu-latest
+    outputs:
+      outcome: ${{steps.status.outcome}}
+
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -20,8 +27,6 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-      
-      
 
       - name: Download Release Candidate
         uses: actions/download-artifact@v4
@@ -35,6 +40,5 @@ jobs:
           echo "Running live dependency tests..."
 
       - name: Set status
-        run: |
-          echo "LIVE_TESTS_PASSED=true" >> $GITHUB_ENV
-          echo "LIVE_TESTS_PASSED=true" >> $env:$GITHUB_OUTPUT
+        id: status
+        run: echo "outcome=true" >> $GITHUB_OUTPUT
