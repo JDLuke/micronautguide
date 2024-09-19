@@ -15,7 +15,7 @@ jobs:
   build_release_candidate:
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.version-output.outputs.version }}
+      version: ${{ steps.version.outputs.version }}
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -42,26 +42,11 @@ jobs:
         run: | 
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
-
-      - name: Write version.txt
-        run: echo $VERSION > version.txt
-
-      - name: Display version.txt
-        run: cat version.txt
-
-      - name: Output version
-        id: version-output
-        run: echo "version=$VERSION" >> $GITHUB_OUTPUT
-
-      - name: Store version
-        uses: actions/upload-artifact@v4
-        with:
-          name: version-marker
-          path: version.txt
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: release-candidate-jar
-          path: target/*.jar
+          path: target/
 
