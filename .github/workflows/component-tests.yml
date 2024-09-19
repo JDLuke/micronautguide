@@ -5,7 +5,6 @@ on:
 
 jobs:
   component_tests:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
 
@@ -13,7 +12,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: version-marker
-          run-id: ${{ github.event.workflow_run.id }}
 
       - name: Display version
         run: cat version.txt

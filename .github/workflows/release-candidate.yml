@@ -8,7 +8,6 @@ permissions:
 
 jobs:
   build_release_candidate:
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
