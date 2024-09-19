@@ -14,11 +14,15 @@ jobs:
   unit_tests:
     uses: ./.github/workflows/unit-test.yml
   build_candidate:
+    needs: unit_tests
     uses: ./.github/workflows/release-candidate.yml
   component_tests:
+    needs: build_candidate
     uses: ./.github/workflows/component-tests.yml
   dependency_tests:
+    needs: build_candidate
     uses: ./.github/workflows/live-dependency-tests.yml
   release:
+    needs: [ component_tests, dependency_tests ]
     uses: ./.github/workflows/release.yml
 
