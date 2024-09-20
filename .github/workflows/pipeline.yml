@@ -22,6 +22,7 @@ jobs:
     uses: ./.github/workflows/lint.yml
 
   unit_tests:
+    needs: lint
     uses: ./.github/workflows/unit-test.yml
 
   build_candidate:
