@@ -2,9 +2,18 @@ package example.micronaut;
 
 import io.micronaut.runtime.Micronaut;
 
-public class Application {
+public final class Application {
 
-    public static void main(String[] args) {
+    /**
+     * Entry point if running a Micronaut application.
+     *
+     * @param args - ignored right now except for any
+     *             default handling Micronaut may impose
+     */
+    public static void main(final String[] args) {
         Micronaut.run(Application.class, args);
     }
+
+    private Application() { }
 }
+

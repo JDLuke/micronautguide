@@ -39,8 +39,6 @@ class MicronautguideTest {
 
     // @Test
     public void validateApplication() {
-        Application application = new Application();
-
         Application.main(new String[0]);
     }
 }
