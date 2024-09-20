@@ -1,0 +1,25 @@
+name: Upload Reports to GitHub Pages
+
+on:
+  workflow_call:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - name: Download Checkstyle Report
+        uses: actions/download-artifact@v2
+        with:
+          name: checkstyle-report
+          path: ./reports
+      - name: Commit and Push Reports
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add ./reports
+          git commit -m 'Update Checkstyle reports'
+          git push origin gh-pages

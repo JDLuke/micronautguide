@@ -11,21 +11,35 @@ permissions:
   deployments: write
 
 jobs:
+  generate_checkstyle_report:
+    uses: ./.github/workflows/checkstyle.yml
+
+  upload_reports:
+    needs: generate_checkstyle_report
+    uses: ./.github/workflows/publish-checkstyle.yml
+
+  lint:
+    uses: ./.github/workflows/lint.yml
+
   unit_tests:
     uses: ./.github/workflows/unit-test.yml
+
   build_candidate:
     needs: unit_tests
     uses: ./.github/workflows/release-candidate.yml
+
   component_tests:
     needs: build_candidate
     uses: ./.github/workflows/component-tests.yml
     with:
       version: ${{ needs.build_candidate.outputs.version }}
+
   dependency_tests:
     needs: build_candidate
     uses: ./.github/workflows/live-dependency-tests.yml
     with:
       version: ${{ needs.build_candidate.outputs.version }}
+
   release:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: [ component_tests, dependency_tests, build_candidate ]
@@ -33,4 +47,3 @@ jobs:
     with:
       version: ${{ needs.build_candidate.outputs.version }}
       app-name: micronautguide
-
