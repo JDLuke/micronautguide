@@ -12,7 +12,7 @@ jobs:
         with:
           ref: gh-pages
       - name: Download Checkstyle Report
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: checkstyle-report
           path: ./reports
