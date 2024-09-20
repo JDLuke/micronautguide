@@ -27,7 +27,7 @@ jobs:
     with:
       version: ${{ needs.build_candidate.outputs.version }}
   release:
-    if: github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: [ component_tests, dependency_tests, build_candidate ]
     uses: ./.github/workflows/release.yml
     with:
