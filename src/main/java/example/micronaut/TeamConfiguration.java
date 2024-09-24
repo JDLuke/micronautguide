@@ -23,8 +23,13 @@ public class TeamConfiguration {
     public String color;
     public List<String> playerNames;
 
+//    @Getter
     @ConfigurationBuilder(prefixes = "with", configurationPrefix = "team-admin")
     TeamAdmin.Builder builder = new TeamAdmin.Builder();
 
+//    @Getter
+    public TeamAdmin.Builder getBuilder() {
+        return builder;
+    }
 }
 

@@ -37,7 +37,7 @@ jobs:
 
       - name: Run unit tests
         id: run-test
-        run: mvn clean test jacoco:report
+        run: mvn clean -pl unit test jacoco:report
 
       - name: Upload JaCoCo report
         uses: actions/upload-artifact@v4

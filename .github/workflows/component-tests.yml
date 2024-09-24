@@ -38,6 +38,8 @@ jobs:
         # Set up your component test environment here
         run: |
           echo "Setting up component test environment..."
+      - name: Cucumber
+        uses: actions
 
       - name: Run component tests
         run: |

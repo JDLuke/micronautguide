@@ -1,5 +1,7 @@
-package example.micronaut;
+package unit.micronaut;
 
+import example.micronaut.TeamAdmin;
+import example.micronaut.TeamConfiguration;
 import io.micronaut.context.ApplicationContext;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +27,7 @@ class TeamConfigurationTest {
 
         ApplicationContext ctx = ApplicationContext.run(items);
         TeamConfiguration teamConfiguration = ctx.getBean(TeamConfiguration.class);
-        TeamAdmin teamAdmin = teamConfiguration.builder.build();
+        TeamAdmin teamAdmin = teamConfiguration.getBuilder().build();
 
         assertEquals("evolution", teamConfiguration.name);
         assertEquals("green", teamConfiguration.color);
@@ -33,9 +35,9 @@ class TeamConfigurationTest {
         assertEquals("Lionel Messi", teamConfiguration.playerNames.get(1));
 
         // check the builder has values set
-        assertEquals("Jerry Jones", teamConfiguration.builder.manager);
-        assertEquals("Tommy O'Neill", teamConfiguration.builder.coach);
-        assertEquals("Mark Scanell", teamConfiguration.builder.president);
+        assertEquals("Jerry Jones", teamConfiguration.getBuilder().manager);
+        assertEquals("Tommy O'Neill", teamConfiguration.getBuilder().coach);
+        assertEquals("Mark Scanell", teamConfiguration.getBuilder().president);
 
         // check the object can be built
         assertEquals("Jerry Jones", teamAdmin.manager);

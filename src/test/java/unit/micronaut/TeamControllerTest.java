@@ -1,5 +1,7 @@
-package example.micronaut;
+package unit.micronaut;
 
+import example.micronaut.TeamConfiguration;
+import example.micronaut.TeamController;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import org.junit.jupiter.api.Test;
 

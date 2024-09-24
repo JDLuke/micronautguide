@@ -1,4 +1,5 @@
-
 micronaut:
+  application:
+    name: Test
   server:
-    port: 8080  # Set the port explicitly for tests
+    port: -1  # Set the port explicitly for tests

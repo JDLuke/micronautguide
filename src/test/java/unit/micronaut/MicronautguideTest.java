@@ -1,4 +1,4 @@
-package example.micronaut;
+package unit.micronaut;
 
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.MediaType;
@@ -34,11 +34,5 @@ class MicronautguideTest {
 
         assertNotNull(body);
         assertEquals("Hello World", body);
-    }
-
-
-    // @Test
-    public void validateApplication() {
-        Application.main(new String[0]);
     }
 }
