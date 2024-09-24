@@ -8,21 +8,33 @@ import io.micronaut.http.annotation.Produces;
 
 @Controller("/team")
 public class TeamController {
+    /**
+     * Configuration for this team.
+     */
     private final TeamConfiguration teamConfiguration;
 
-    public TeamController(TeamConfiguration teamConfiguration) {
-        this.teamConfiguration = teamConfiguration;
+    /**
+     * @param config
+     */
+    public TeamController(final TeamConfiguration config) {
+        this.teamConfiguration = config;
     }
 
+    /**
+     * @return The name of the team
+     */
     @Get("/name")
     @Produces(MediaType.TEXT_PLAIN)
     public String teamInfo() {
-        return teamConfiguration.name;
+        return teamConfiguration.getName();
     }
 
+    /**
+     * @return The players of the team in a CSV list
+     */
     @Get("/players")
     @Produces(MediaType.TEXT_PLAIN)
     public String teamPlayers() {
-        return String.join(", ", teamConfiguration.playerNames);
+        return String.join(", ", teamConfiguration.getPlayerNames());
     }
 }
