@@ -53,6 +53,9 @@ public class TeamAdmin {
          */
         private String manager;
 
+        /**
+         * @return String name of manager
+         */
         public String getManager() {
             return manager;
         }
@@ -61,6 +64,10 @@ public class TeamAdmin {
          * Name of the coach.
          */
         private String coach;
+
+        /**
+         * @return String name of coach
+         */
         public String getCoach() {
             return coach;
         }
@@ -68,10 +75,16 @@ public class TeamAdmin {
          * Name of the president.
          */
         private String president;
+
+        /**
+         * @return String name of president
+         */
         public String getPresident() {
             return president;
         }
 
+
+/*
         public Builder withManager(final String manager) {
             this.manager = manager;
             return this;
@@ -84,7 +97,10 @@ public class TeamAdmin {
             this.president = president;
             return this;
         }
-
+*/
+        /**
+         * @return A new TeamAdmin object
+         */
         public TeamAdmin build() {
             TeamAdmin teamAdmin = new TeamAdmin();
             teamAdmin.manager = this.manager;
