@@ -6,12 +6,10 @@ import io.micronaut.context.annotation.ConfigurationProperties;
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Getter
 @Serdeable
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,15 +17,50 @@ import java.util.List;
 @JsonIgnoreProperties("builder")
 @ConfigurationProperties("team")
 public class TeamConfiguration {
-    public String name;
-    public String color;
-    public List<String> playerNames;
+    /**
+     * Team name.
+     */
+    private String name;
 
-//    @Getter
+    /**
+     * @return String with name of team
+     */
+    public String getName() {
+        return name;
+    }
+    /**
+     * Team color.
+     */
+    private String color;
+
+    /**
+     * @return String with color of team
+     */
+    public String getColor() {
+        return color;
+    }
+
+    /**
+     * List of player names.
+     */
+    private List<String> playerNames;
+
+    /**
+     * @return List of player names
+     */
+    public List<String> getPlayerNames() {
+        return playerNames;
+    }
+
+    /**
+     * The actual builder object.
+     */
     @ConfigurationBuilder(prefixes = "with", configurationPrefix = "team-admin")
-    TeamAdmin.Builder builder = new TeamAdmin.Builder();
+    private TeamAdmin.Builder builder = new TeamAdmin.Builder();
 
-//    @Getter
+    /**
+     * @return a TeamAdmin.Builder
+     */
     public TeamAdmin.Builder getBuilder() {
         return builder;
     }
