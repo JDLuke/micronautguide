@@ -35,14 +35,14 @@ class TeamConfigurationTest {
         assertEquals("Lionel Messi", teamConfiguration.playerNames.get(1));
 
         // check the builder has values set
-        assertEquals("Jerry Jones", teamConfiguration.getBuilder().manager);
-        assertEquals("Tommy O'Neill", teamConfiguration.getBuilder().coach);
-        assertEquals("Mark Scanell", teamConfiguration.getBuilder().president);
+        assertEquals("Jerry Jones", teamConfiguration.getBuilder().getManager());
+        assertEquals("Tommy O'Neill", teamConfiguration.getBuilder().getCoach());
+        assertEquals("Mark Scanell", teamConfiguration.getBuilder().getPresident());
 
         // check the object can be built
-        assertEquals("Jerry Jones", teamAdmin.manager);
-        assertEquals("Tommy O'Neill", teamAdmin.coach);
-        assertEquals("Mark Scanell", teamAdmin.president);
+        assertEquals("Jerry Jones", teamAdmin.getManager());
+        assertEquals("Tommy O'Neill", teamAdmin.getCoach());
+        assertEquals("Mark Scanell", teamAdmin.getPresident());
 
         ctx.close();
     }

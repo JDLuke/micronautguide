@@ -3,6 +3,7 @@ package example.micronaut;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
@@ -11,30 +12,65 @@ public class TeamAdmin {
     /**
      * Name of the manager.
      */
-    public String manager;
+    @Setter
+    private String manager;
+
+    /**
+     * @return String containing name of manager
+     */
+    public String getManager() {
+        return manager;
+    }
     /**
      * Name of the coach.
      */
-    public String coach;
+    @Setter
+    private String coach;
+
+    /**
+     * @return String name of coach
+     */
+    public String getCoach() {
+        return coach;
+    }
     /**
      * Name of the president.
      */
-    public String president;
+    @Setter
+    private String president;
+
+    /**
+     * @return String name of president
+     */
+    public String getPresident() {
+        return president;
+    }
 
     @NoArgsConstructor
     public static class Builder {
         /**
          * Name of the manager.
          */
-        public String manager;
+        private String manager;
+
+        public String getManager() {
+            return manager;
+        }
+
         /**
          * Name of the coach.
          */
-        public String coach;
+        private String coach;
+        public String getCoach() {
+            return coach;
+        }
         /**
          * Name of the president.
          */
-        public String president;
+        private String president;
+        public String getPresident() {
+            return president;
+        }
 
         public Builder withManager(final String manager) {
             this.manager = manager;
