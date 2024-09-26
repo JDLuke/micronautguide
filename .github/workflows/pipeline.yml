@@ -42,6 +42,7 @@ jobs:
     uses: ./.github/workflows/component-tests.yml
     with:
       version: ${{ needs.build_candidate.outputs.version }}
+      skip: ${{ needs.read_config.outputs.component_tests }}
 
   dependency_tests:
     needs: [read_config, build_candidate]

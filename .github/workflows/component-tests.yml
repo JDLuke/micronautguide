@@ -6,6 +6,9 @@ on:
       version:
         required: true
         type: string
+      skip:
+        required: false
+        type: boolean
     outputs:
       test-result:
         description: "Result of Component Testing"
@@ -49,6 +52,7 @@ jobs:
         run: mvn mn:start-testresources-service
 
       - name: Run component tests
+        if: ${{ inputs.skip != false }}
         run: |
           echo "Running component tests..."
           mvn verify

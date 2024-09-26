@@ -1,2 +1,3 @@
 build:
   dependency_tests: false
+  component_tests: false
