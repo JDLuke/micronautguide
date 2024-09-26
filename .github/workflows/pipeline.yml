@@ -11,6 +11,9 @@ permissions:
   deployments: write
 
 jobs:
+  checkout:
+    uses: actions/checkout@v4
+
   generate_checkstyle_report:
     uses: ./.github/workflows/checkstyle.yml
 
