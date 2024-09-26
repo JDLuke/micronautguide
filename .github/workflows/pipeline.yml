@@ -38,7 +38,7 @@ jobs:
     uses: ./.github/workflows/release-candidate.yml
 
   component_tests:
-    needs: build_candidate
+    needs: [read_config, build_candidate]
     uses: ./.github/workflows/component-tests.yml
     with:
       version: ${{ needs.build_candidate.outputs.version }}
