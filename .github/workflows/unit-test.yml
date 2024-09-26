@@ -14,8 +14,13 @@ jobs:
     outputs:
       outcome: ${{steps.status.outcome}}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Restore repository cache
+        uses: actions/cache@v4
+        with:
+          path: .
+          key: ${{ runner.os }}-repo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-repo-
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4

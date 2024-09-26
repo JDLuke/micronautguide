@@ -23,6 +23,7 @@ jobs:
     uses: ./.github/workflows/publish-checkstyle.yml
 
   lint:
+    needs: checkout
     uses: ./.github/workflows/lint.yml
 
   unit_tests:

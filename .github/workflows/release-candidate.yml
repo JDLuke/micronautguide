@@ -17,6 +17,14 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.version }}
     steps:
+      - name: Restore repository cache
+        uses: actions/cache@v4
+        with:
+          path: .
+          key: ${{ runner.os }}-repo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-repo-
+
       - name: Check out code
         uses: actions/checkout@v4
 
