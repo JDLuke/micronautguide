@@ -13,7 +13,7 @@ import java.util.List;
 @Serdeable
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+//@Builder
 @JsonIgnoreProperties("builder")
 @ConfigurationProperties("team")
 public class TeamConfiguration {
@@ -28,6 +28,13 @@ public class TeamConfiguration {
     public String getName() {
         return name;
     }
+
+    /**
+     * @param teamName - String with the name of the team
+     */
+    public void setName(final String teamName) {
+        this.name = teamName;
+    }
     /**
      * Team color.
      */
@@ -41,6 +48,12 @@ public class TeamConfiguration {
     }
 
     /**
+     * @param newColor - String containing the new color for the team.
+     */
+    public void setColor(final String newColor) {
+        this.color = newColor;
+    }
+    /**
      * List of player names.
      */
     private List<String> playerNames;
@@ -52,6 +65,12 @@ public class TeamConfiguration {
         return playerNames;
     }
 
+    /**
+     * @param newPlayerNames - A List of Strings containing all player names
+     */
+    public void setPlayerNames(final List<String> newPlayerNames) {
+        this.playerNames = newPlayerNames;
+    }
     /**
      * The actual builder object.
      */

@@ -29,10 +29,10 @@ class TeamConfigurationTest {
         TeamConfiguration teamConfiguration = ctx.getBean(TeamConfiguration.class);
         TeamAdmin teamAdmin = teamConfiguration.getBuilder().build();
 
-        assertEquals("evolution", teamConfiguration.name);
-        assertEquals("green", teamConfiguration.color);
-        assertEquals("Nirav Assar", teamConfiguration.playerNames.get(0));
-        assertEquals("Lionel Messi", teamConfiguration.playerNames.get(1));
+        assertEquals("evolution", teamConfiguration.getName());
+        assertEquals("green", teamConfiguration.getColor());
+        assertEquals("Nirav Assar", teamConfiguration.getPlayerNames().get(0));
+        assertEquals("Lionel Messi", teamConfiguration.getPlayerNames().get(1));
 
         // check the builder has values set
         assertEquals("Jerry Jones", teamConfiguration.getBuilder().getManager());
@@ -59,10 +59,10 @@ class TeamConfigurationTest {
         ApplicationContext ctx = ApplicationContext.run(items);
         TeamConfiguration teamConfiguration = ctx.getBean(TeamConfiguration.class);
 
-        assertEquals("evolution", teamConfiguration.name);
-        assertEquals("green", teamConfiguration.color);
-        assertEquals(names.size(), teamConfiguration.playerNames.size());
-        names.forEach(name -> assertTrue(teamConfiguration.playerNames.contains(name)));
+        assertEquals("evolution", teamConfiguration.getName());
+        assertEquals("green", teamConfiguration.getColor());
+        assertEquals(names.size(), teamConfiguration.getPlayerNames().size());
+        names.forEach(name -> assertTrue(teamConfiguration.getPlayerNames().contains(name)));
 
         ctx.close();
     }

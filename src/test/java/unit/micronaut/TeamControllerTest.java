@@ -14,8 +14,8 @@ public class TeamControllerTest {
     @Test
     void canCreate() {
         TeamConfiguration teamConfiguration = new TeamConfiguration();
-        teamConfiguration.playerNames = List.of("name", "name2");
-        teamConfiguration.name = "teamName";
+        teamConfiguration.setPlayerNames(List.of("name", "name2"));
+        teamConfiguration.setName("teamName");
         TeamController teamController = new TeamController(teamConfiguration);
 
         assertEquals("name, name2", teamController.teamPlayers());

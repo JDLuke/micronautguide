@@ -12,7 +12,6 @@ public class TeamAdmin {
     /**
      * Name of the manager.
      */
-    @Setter
     private String manager;
 
     /**
@@ -21,12 +20,17 @@ public class TeamAdmin {
     public String getManager() {
         return manager;
     }
+    public void setManager(String manager) {
+        this.manager = manager;
+    }
     /**
      * Name of the coach.
      */
-    @Setter
     private String coach;
 
+    public void setCoach(String coach) {
+        this.coach = coach;
+    }
     /**
      * @return String name of coach
      */
@@ -36,8 +40,10 @@ public class TeamAdmin {
     /**
      * Name of the president.
      */
-    @Setter
     private String president;
+    public void setPresident(String newPresident) {
+        this.president = newPresident;
+    }
 
     /**
      * @return String name of president
