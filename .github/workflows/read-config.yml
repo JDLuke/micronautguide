@@ -20,7 +20,8 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const config = YAML.parse(fs.readFileSync('config.yml', 'utf8'));
+            const yaml = require('js-yaml');
+            const config = yaml.load(fs.readFileSync('config.yml', 'utf8'));
             return config;
 
       - name: Iterate through configuration and set outputs
