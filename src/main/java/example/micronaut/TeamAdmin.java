@@ -54,6 +54,18 @@ public class TeamAdmin {
 
     @NoArgsConstructor
     public static class Builder {
+        public Builder withManager(final String manager) {
+            this.manager = manager;
+            return this;
+        }
+        public Builder withCoach(final String coach) {
+            this.coach = coach;
+            return this;
+        }
+        public Builder withPresident(final String president) {
+            this.president = president;
+            return this;
+        }
         /**
          * Name of the manager.
          */
