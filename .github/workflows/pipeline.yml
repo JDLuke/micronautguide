@@ -12,9 +12,10 @@ permissions:
 
 jobs:
   checkout:
-    uses: actions/checkout@v4
+    uses: ./.github/workflows/checkout.yml
 
   generate_checkstyle_report:
+    needs: checkout
     uses: ./.github/workflows/checkstyle.yml
 
   upload_reports:
