@@ -46,7 +46,7 @@ jobs:
       - name: Run component tests
         run: |
           echo "Running component tests..."
-          mvn validate
+          mvn verify
 
       - name: Stop test resources
         run: mvn mn:stop-testresources-service
