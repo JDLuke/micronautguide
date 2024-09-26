@@ -19,11 +19,18 @@ jobs:
       outcome: ${{steps.status.outcome}}
 
     steps:
-      - name: Download Release Candidate
-        uses: actions/download-artifact@v4
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
         with:
-          name: release-candidate-jar
-          path: target/
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Install Maven
+        run: sudo apt-get update && sudo apt-get install -y maven
 
       - name: Cache local Maven repository
         uses: actions/cache@v4
@@ -33,18 +40,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-
-      - name: Set up environment for component testing
-        # Set up your component test environment here
-        run: |
-          echo "Setting up component test environment..."
-      - name: Cucumber
-        uses: actions
+      - name: Start test resources
+        run: mvn mn:start-testresources-service
 
       - name: Run component tests
         run: |
-          # Replace with your component test command
           echo "Running component tests..."
+          mvn validate
+
+      - name: Stop test resources
+        run: mvn mn:stop-testresources-service
 
       - name: Set status
         id: status
