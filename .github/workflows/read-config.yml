@@ -32,7 +32,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const config = ${{ steps.read_config.outputs.result }};
+            const config = ${{ steps.read_config.outputs }};
             for (const [key, value] of Object.entries(config)) {
               core.setOutput(key, value);
             }
