@@ -3,7 +3,6 @@ package example.micronaut;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
@@ -20,16 +19,26 @@ public class TeamAdmin {
     public String getManager() {
         return manager;
     }
-    public void setManager(String manager) {
-        this.manager = manager;
+
+    /**
+     * Sets the name of the team manager.
+     *
+     * @param newManager
+     */
+    public void setManager(final String newManager) {
+        this.manager = newManager;
     }
     /**
      * Name of the coach.
      */
     private String coach;
 
-    public void setCoach(String coach) {
-        this.coach = coach;
+    /**
+     * Sets the name of the team coach.
+     * @param newCoach
+     */
+    public void setCoach(final String newCoach) {
+        this.coach = newCoach;
     }
     /**
      * @return String name of coach
@@ -41,7 +50,12 @@ public class TeamAdmin {
      * Name of the president.
      */
     private String president;
-    public void setPresident(String newPresident) {
+
+    /**
+     * Sets the name of the team president.
+     * @param newPresident
+     */
+    public void setPresident(final String newPresident) {
         this.president = newPresident;
     }
 
@@ -54,16 +68,36 @@ public class TeamAdmin {
 
     @NoArgsConstructor
     public static class Builder {
-        public Builder withManager(final String manager) {
-            this.manager = manager;
+        /**
+         * Sets the name of the manager of the administration we will build.
+         *
+         * @param theManager - String name of the manager for the new team admin
+         * @return A builder object for the TeamAdmin that includes the
+         * manager's name.
+         */
+        public Builder withManager(final String theManager) {
+            this.manager = theManager;
             return this;
         }
-        public Builder withCoach(final String coach) {
-            this.coach = coach;
+
+        /**
+         * Sets the name of the coach of the administration we will build.
+         * @param theCoach - Name of the coach
+         * @return Builder object with coach populated
+         */
+        public Builder withCoach(final String theCoach) {
+            this.coach = theCoach;
             return this;
         }
-        public Builder withPresident(final String president) {
-            this.president = president;
+
+        /**
+         * Sets the name of the president of the administration we will build.
+         *
+         * @param thePresident - Name of the president
+         * @return Builder object with president populated
+         */
+        public Builder withPresident(final String thePresident) {
+            this.president = thePresident;
             return this;
         }
         /**
