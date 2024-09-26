@@ -25,14 +25,7 @@ jobs:
             const fs = require('fs');
             const yaml = require('js-yaml');
             const config = yaml.load(fs.readFileSync('config.yml', 'utf8'));
-            return config;
-
-      - name: Iterate through configuration and set outputs
-        id: iterate
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const config = ${{ steps.read_config.outputs }};
             for (const [key, value] of Object.entries(config)) {
               core.setOutput(key, value);
             }
+            return config;
