@@ -5,7 +5,6 @@ import io.micronaut.context.annotation.ConfigurationBuilder;
 import io.micronaut.context.annotation.ConfigurationProperties;
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.List;
 @Serdeable
 @AllArgsConstructor
 @NoArgsConstructor
-//@Builder
 @JsonIgnoreProperties("builder")
 @ConfigurationProperties("team")
 public class TeamConfiguration {
