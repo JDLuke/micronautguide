@@ -6,6 +6,9 @@ on:
       version:
         required: true
         type: string
+      skip:
+        required: false
+        type: boolean
     outputs:
       test-result:
         description: "Result of Dependency Testing"
@@ -28,6 +31,7 @@ jobs:
           path: target/
 
       - name: Run live dependency tests
+        if: ${{ inputs.skip != false }}
         # Add your live dependency testing logic here
         run: |
           echo "Running live dependency tests..."

@@ -45,10 +45,10 @@ jobs:
 
   dependency_tests:
     needs: [read_config, build_candidate]
-    if: ${{ needs.read_config.outputs.dependency_tests != false }}
     uses: ./.github/workflows/live-dependency-tests.yml
     with:
       version: ${{ needs.build_candidate.outputs.version }}
+      skip: ${{ needs.read_config.outputs.dependency_tests }}
 
   release:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
