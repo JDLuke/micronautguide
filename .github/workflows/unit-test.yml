@@ -11,6 +11,7 @@ jobs:
   test:
     name: Run Standard Unit Tests
     runs-on: ubuntu-latest
+
     outputs:
       outcome: ${{steps.status.outcome}}
     steps:
@@ -29,10 +30,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Install Maven
-        run: sudo apt-get update && sudo apt-get install -y maven
-
-      - name: Cache local Maven repository
+      - name: Restore Maven cache
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository

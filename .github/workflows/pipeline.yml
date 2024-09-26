@@ -14,6 +14,9 @@ jobs:
   checkout:
     uses: ./.github/workflows/checkout.yml
 
+  read_config:
+    uses: ./.github/workflows/read-config.yml
+
   generate_checkstyle_report:
     needs: checkout
     uses: ./.github/workflows/checkstyle.yml
@@ -41,7 +44,8 @@ jobs:
       version: ${{ needs.build_candidate.outputs.version }}
 
   dependency_tests:
-    needs: build_candidate
+    needs: [read_config, build_candidate]
+    if: ${{ needs.read_config.outputs.dependency_tests != false }}
     uses: ./.github/workflows/live-dependency-tests.yml
     with:
       version: ${{ needs.build_candidate.outputs.version }}

@@ -1,0 +1,34 @@
+name: Read Configuration File
+
+on: workflow_call
+
+jobs:
+  read-config:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restore repository cache
+        uses: actions/cache@v4
+        with:
+          path: .
+          key: ${{ runner.os }}-repo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-repo-
+
+      - name: Read configuration file
+        id: config
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const config = YAML.parse(fs.readFileSync('config.yml', 'utf8'));
+            return config;
+
+      - name: Iterate through configuration and set outputs
+        id: iterate
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const config = ${{ steps.read_config.outputs.result }};
+            for (const [key, value] of Object.entries(config)) {
+              core.setOutput(key, value);
+            }
