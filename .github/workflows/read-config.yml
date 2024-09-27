@@ -1,12 +1,18 @@
 name: Read Configuration File
 
-on: workflow_call
+on:
+  workflow_call:
+    outputs:
+      json-config:
+        description: Configuration for build (from config.yml)
+        value: ${{ jobs.read-config.outputs.json-config }}
+
 
 jobs:
   read-config:
     runs-on: ubuntu-latest
     outputs:
-      json-config: ${{ steps.config.outputs.result }}
+      json-config: ${{ steps.env.outputs.json-config }}
     steps:
       - name: Restore repository cache
         uses: actions/cache@v4
@@ -38,3 +44,7 @@ jobs:
               console.error("Error reading configuration file:", error);
               core.setFailed(error.message);
             }
+
+      - name: Setup Environment
+        id: env
+        run: echo "json-config=${{ steps.config.outputs.result }}" >> $GITHUB_OUTPUT
