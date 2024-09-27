@@ -14,6 +14,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-repo-
 
+      - name: Display configuration file
+        with:
+          script: |
+            cat config.yml
+
       - name: Install yaml library
         run: npm install js-yaml
 
@@ -30,7 +35,7 @@ jobs:
               console.log("Configuration file loaded successfully:");
               console.log(config);
               
-              for (const [key, value] of Object.entries(config.build)) {
+              for (const [key, value] of Object.entries(config.config)) {
               console.log(`Setting output: ${key} = ${value}`);
               core.setOutput(key, value);
               }
