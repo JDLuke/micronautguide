@@ -30,7 +30,7 @@ jobs:
               console.log("Configuration file loaded successfully:");
               console.log(config);
               
-              for (const [key, value] of Object.entries(config)) {
+              for (const [key, value] of Object.entries(config.build)) {
               console.log(`Setting output: ${key} = ${value}`);
               core.setOutput(key, value);
               }
