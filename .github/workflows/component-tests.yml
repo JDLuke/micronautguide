@@ -37,9 +37,6 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Install Maven
-        run: sudo apt-get update && sudo apt-get install -y maven
-
       - name: Cache local Maven repository
         uses: actions/cache@v4
         with:
@@ -47,9 +44,6 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-
-      - name: Start test resources
-        run: mvn mn:start-testresources-service
 
       - name: Deserialize JSON output
         id: deserialize
@@ -71,9 +65,6 @@ jobs:
           echo 
           echo "Running component tests..."
           mvn verify
-
-      - name: Stop test resources
-        run: mvn mn:stop-testresources-service
 
       - name: Set status
         id: status
