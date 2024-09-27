@@ -4,22 +4,38 @@ on:
   workflow_call:
 
 jobs:
-  deploy:
+  publish-report:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           ref: gh-pages
+
       - name: Download Checkstyle Report
         uses: actions/download-artifact@v4
         with:
           name: checkstyle-report
           path: ./reports
-      - name: Commit and Push Reports
+
+      - name: Check for changes
+        id: git_diff
+        run: |
+          git diff --exit-code || echo "Changes detected"
+
+      - name: Commit changes
+        if: steps.git_diff.outputs.exit_code != '0'
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
           git add ./reports
           git commit -m 'Update Checkstyle reports'
+
+      - name: Push changes
+        if: steps.git_diff.outputs.exit_code != '0'
+        run: |
           git push origin gh-pages
+
+      - name: Notify no changes
+        if: steps.git_diff.outputs.exit_code == '0'
+        run: echo "No changes to commit"

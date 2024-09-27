@@ -26,6 +26,7 @@ jobs:
             const yaml = require('js-yaml');
             const config = yaml.load(fs.readFileSync('config.yml', 'utf8'));
             for (const [key, value] of Object.entries(config)) {
+              console.log(key + ": " + value);
               core.setOutput(key, value);
             }
             return config;
