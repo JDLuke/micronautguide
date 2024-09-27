@@ -12,36 +12,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Display input environment
-        run: |
-          printenv
-          echo \n\n\nGithub env:
-          cat $GITHUB_ENV
-          echo \n\n\nGithub output:
-          cat $GITHUB_OUTPUT
-
-      - name: Modify environment
+      - name: Display environment
         id: environment
         uses: actions/github-script@v6
         with:
           script: |
             const environment = '${{ inputs.environment }}';
-            console.log("Skip value: " + environment);
+            console.log("Environment: " + environment);
             core.setOutput('env', environment);
-            const parsed = JSON.parse(environment);
-            console.log(parsed);
-
-      - name: Display output environment
-        run: |
-          printenv
-          echo \n\n\nGithub env:
-          echo
-          echo
-          echo
-          cat $GITHUB_ENV
-          echo
-          echo
-          echo
-          Github output:
-          cat $GITHUB_OUTPUT
-          echo ${{ steps.environment.outputs.env }}
+            try {
+              const parsed = JSON.parse(environment);
+              console.log(parsed);
+            } catch (error) {
+              console.error("Error parsing JSON:", error);
+              core.setFailed(error.message);
+            }
