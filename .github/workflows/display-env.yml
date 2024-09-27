@@ -26,9 +26,15 @@ jobs:
         with:
           script: |
             const environment = ${{ inputs.environment }};
-            const parsed = JSON.parse(environment);
-            console.log("Skip value: " + parsed);
-            core.setOutput('env', parsed);
+            console.log("Skip value: " + environment);
+            core.setOutput('env', environment);
+            try {
+              const parsed = JSON.parse(environment);
+            console.log(parsed);
+            }
+            catch(Exception e) {
+              console.error(e);
+            }
 
       - name: Display output environment
         run: |
