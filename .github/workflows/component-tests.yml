@@ -50,14 +50,15 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const skip = ${{ inputs.skip.config.component_tests }} ?? false;
+            const skip = ${{ inputs.skip.config.component_tests }};
+            console.log("Skip value: " + skip);
             core.setOutput('skip', skip);
 
       - name: Test output
         run: echo ${{ steps.deserialize.outputs.skip }}
 
       - name: Run component tests
-        if: ${{ steps.deserialize.outputs.skip }}
+        if: ${{ steps.deserialize.outputs.skip == false }}
         run: |
           echo 
           echo "Running component tests..."
