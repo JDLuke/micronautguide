@@ -21,17 +21,26 @@ jobs:
           cat $GITHUB_OUTPUT
 
       - name: Modify environment
+        id: environment
         uses: actions/github-script@v6
         with:
           script: |
             const environment = ${{ inputs.environment }};
-            console.log("Skip value: " + environment);
-            core.setOutput('env', environment);
+            const parsed = JSON.parse(environment);
+            console.log("Skip value: " + parsed);
+            core.setOutput('env', parsed);
 
       - name: Display output environment
         run: |
           printenv
           echo \n\n\nGithub env:
+          echo
+          echo
+          echo
           cat $GITHUB_ENV
-          echo \n\n\nGithub output:
+          echo
+          echo
+          echo
+          Github output:
           cat $GITHUB_OUTPUT
+          echo ${{ steps.environment.outputs.env }}
