@@ -24,9 +24,19 @@ jobs:
           script: |
             const fs = require('fs');
             const yaml = require('js-yaml');
-            const config = yaml.load(fs.readFileSync('config.yml', 'utf8'));
-            for (const [key, value] of Object.entries(config)) {
-              console.log(key + ": " + value);
+            const core = require('@actions/core');
+      
+            try {
+              const config = yaml.load(fs.readFileSync('config.yml', 'utf8'));
+              console.log("Configuration file loaded successfully:");
+              console.log(config);
+              
+              for (const [key, value] of Object.entries(config)) {
+              console.log(`Setting output: ${key} = ${value}`);
               core.setOutput(key, value);
+              }
+              return config;
+            } catch (error) {
+              console.error("Error reading configuration file:", error);
+              core.setFailed(error.message);
             }
-            return config;
