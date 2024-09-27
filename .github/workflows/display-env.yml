@@ -25,8 +25,8 @@ jobs:
         with:
           script: |
             const environment = ${{ inputs.environment }};
-            console.log("Skip value: " + skip);
-            core.setOutput('env', skip);
+            console.log("Skip value: " + environment);
+            core.setOutput('env', environment);
 
       - name: Display output environment
         run: |
