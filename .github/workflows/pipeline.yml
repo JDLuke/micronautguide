@@ -12,13 +12,14 @@ jobs:
     uses: ./.github/workflows/checkout.yml
 
   read_config:
+    needs: checkout
     uses: ./.github/workflows/read-config.yml
 
   generate_checkstyle_report:
     needs: checkout
     uses: ./.github/workflows/checkstyle.yml
 
-  upload_reports:
+  publish_checkstyle_report:
     needs: generate_checkstyle_report
     uses: ./.github/workflows/publish-checkstyle.yml
 
@@ -31,18 +32,18 @@ jobs:
     uses: ./.github/workflows/unit-test.yml
 
   build_candidate:
-    needs: unit_tests
+    needs: [read_config, unit_tests]
     uses: ./.github/workflows/release-candidate.yml
 
   component_tests:
-    needs: [read_config, build_candidate]
+    needs: build_candidate
     uses: ./.github/workflows/component-tests.yml
     with:
       version: ${{ needs.build_candidate.outputs.version }}
       skip: ${{ needs.read_config.outputs.component_tests }}
 
   dependency_tests:
-    needs: [read_config, build_candidate]
+    needs: build_candidate
     uses: ./.github/workflows/live-dependency-tests.yml
     with:
       version: ${{ needs.build_candidate.outputs.version }}
