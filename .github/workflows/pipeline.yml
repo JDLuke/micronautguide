@@ -40,7 +40,7 @@ jobs:
     uses: ./.github/workflows/component-tests.yml
     with:
       version: ${{ needs.build_candidate.outputs.version }}
-      skip: ${{ needs.read_config.outputs.json_config }}
+      skip: ${{ needs.read_config.outputs.json-config }}
 
   dependency_tests:
     needs: build_candidate
@@ -56,3 +56,4 @@ jobs:
     with:
       version: ${{ needs.build_candidate.outputs.version }}
       app-name: micronautguide
+
