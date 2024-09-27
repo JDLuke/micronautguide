@@ -15,6 +15,12 @@ jobs:
     needs: checkout
     uses: ./.github/workflows/read-config.yml
 
+  display_environment:
+    needs: read_config
+    uses: ./.github/workflows/display-env.yml
+    with:
+      environment: ${{ needs.read_config.outputs.json-config }}
+
   generate_checkstyle_report:
     needs: checkout
     uses: ./.github/workflows/checkstyle.yml

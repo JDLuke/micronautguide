@@ -1,0 +1,37 @@
+name: Component Tests
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+
+jobs:
+  display-environment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Display input environment
+        run: |
+          printenv
+          echo \n\n\nGithub env:
+          cat $GITHUB_ENV
+          echo \n\n\nGithub output:
+          cat $GITHUB_OUTPUT
+
+      - name: Modify environment
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const environment = ${{ inputs.environment }};
+            console.log("Skip value: " + skip);
+            core.setOutput('env', skip);
+
+      - name: Display output environment
+        run: |
+          printenv
+          echo \n\n\nGithub env:
+          cat $GITHUB_ENV
+          echo \n\n\nGithub output:
+          cat $GITHUB_OUTPUT
