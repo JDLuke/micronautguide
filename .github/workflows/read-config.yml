@@ -24,7 +24,6 @@ jobs:
           script: |
             const fs = require('fs');
             const yaml = require('js-yaml');
-            const core = require('@actions/core');
       
             try {
               const config = yaml.load(fs.readFileSync('config.yml', 'utf8'));
