@@ -50,7 +50,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const output = JSON.parse(${{ inputs.skip }});
+            const output = JSON.parse('${{ inputs.skip }}');
             console.log(output);
             for (const [key, value] of Object.entries(output.config)) {
               core.setOutput(key, value);
