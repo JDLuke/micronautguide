@@ -29,14 +29,10 @@ jobs:
           script: |
             const fs = require('fs');
             const yaml = require('js-yaml');
-      
             try {
               const config = yaml.load(fs.readFileSync('config.yml', 'utf8'));
               console.log("Configuration file loaded successfully:");
               console.log(config);
-
-#              const jsonConfig = JSON.stringify(config);
-#              core.setOutput('json_config', jsonConfig);
               return config;
             } catch (error) {
               console.error("Error reading configuration file:", error);
