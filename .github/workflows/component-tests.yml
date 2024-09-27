@@ -56,7 +56,6 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const core = require('@actions/core');
             const output = JSON.parse(process.env.JSON_CONFIG);
             console.log(output);
             for (const [key, value] of Object.entries(output.config)) {
