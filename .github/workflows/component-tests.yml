@@ -8,7 +8,7 @@ on:
         type: string
       skip:
         required: false
-        type: boolean
+        type: string
     outputs:
       test-result:
         description: "Result of Component Testing"
@@ -51,9 +51,25 @@ jobs:
       - name: Start test resources
         run: mvn mn:start-testresources-service
 
+      - name: Deserialize JSON output
+        id: deserialize
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const core = require('@actions/core');
+            const output = JSON.parse(process.env.JSON_CONFIG);
+            console.log(output);
+            for (const [key, value] of Object.entries(output.config)) {
+              core.setOutput(key, value);
+            }
+
+      - name: Test output
+        run: echo ${{ steps.deserialize.outputs.json_config }}
+
       - name: Run component tests
-        if: ${{ inputs.skip != false }}
+        if: ${{ steps.deserialize.outputs.json_config.config.dependency_tests }}
         run: |
+          echo 
           echo "Running component tests..."
           mvn verify
 

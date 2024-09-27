@@ -5,6 +5,8 @@ on: workflow_call
 jobs:
   read-config:
     runs-on: ubuntu-latest
+    outputs:
+      json-config: ${{ steps.config.outputs.result }}
     steps:
       - name: Restore repository cache
         uses: actions/cache@v4
@@ -32,11 +34,9 @@ jobs:
               const config = yaml.load(fs.readFileSync('config.yml', 'utf8'));
               console.log("Configuration file loaded successfully:");
               console.log(config);
-              
-              for (const [key, value] of Object.entries(config.config)) {
-              console.log(`Setting output: ${key} = ${value}`);
-              core.setOutput(key, value);
-              }
+
+#              const jsonConfig = JSON.stringify(config);
+#              core.setOutput('json_config', jsonConfig);
               return config;
             } catch (error) {
               console.error("Error reading configuration file:", error);

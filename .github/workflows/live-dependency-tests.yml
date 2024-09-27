@@ -8,7 +8,7 @@ on:
         type: string
       skip:
         required: false
-        type: boolean
+        type: string
     outputs:
       test-result:
         description: "Result of Dependency Testing"
