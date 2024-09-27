@@ -39,7 +39,9 @@ jobs:
               const config = yaml.load(fs.readFileSync('config.yml', 'utf8'));
               console.log("Configuration file loaded successfully:");
               console.log(config);
-              return config;
+            
+              const jsonConfig = JSON.stringify(config);
+              return jsonConfig;
             } catch (error) {
               console.error("Error reading configuration file:", error);
               core.setFailed(error.message);
