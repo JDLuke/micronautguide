@@ -15,9 +15,7 @@ jobs:
             ${{ runner.os }}-repo-
 
       - name: Display configuration file
-        with:
-          script: |
-            cat config.yml
+        run: cat config.yml
 
       - name: Install yaml library
         run: npm install js-yaml
