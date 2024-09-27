@@ -50,17 +50,14 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const output = JSON.parse('${{ inputs.skip }}');
-            console.log(output);
-            for (const [key, value] of Object.entries(output.config)) {
-              core.setOutput(key, value);
-            }
+            const skip = ${{ inputs.skip.config.component_tests }} ?? false;
+            core.setOutput('skip', skip);
 
       - name: Test output
-        run: echo ${{ steps.deserialize.outputs.json_config }}
+        run: echo ${{ steps.deserialize.outputs.skip }}
 
       - name: Run component tests
-        if: ${{ steps.deserialize.outputs.json_config.config.dependency_tests }}
+        if: ${{ steps.deserialize.outputs.skip }}
         run: |
           echo 
           echo "Running component tests..."
