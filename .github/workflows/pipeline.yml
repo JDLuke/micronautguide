@@ -1,10 +1,7 @@
 name: Pipeline
 
 on:
-  push:  # Run tests on all branches
-    branches: ["**"]
-  pull_request:  # Run tests on PRs targeting any branch
-    branches: ["**"]
+  workflow_call:
 
 permissions:
   contents: write
