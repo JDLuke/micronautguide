@@ -3,11 +3,8 @@ name: Component Tests
 on:
   workflow_call:
     inputs:
-      version:
+      configuration:
         required: true
-        type: string
-      skip:
-        required: false
         type: string
     outputs:
       test-result:
@@ -50,7 +47,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const skip = ${{ inputs.skip.config.component_tests }};
+            const skip = JSON.stringify(${{ inputs.skip }};
             console.log("Skip value: " + skip);
             core.setOutput('skip', skip);
 
@@ -58,7 +55,7 @@ jobs:
         run: echo ${{ steps.deserialize.outputs.skip }}
 
       - name: Run component tests
-        if: ${{ steps.deserialize.outputs.skip == false }}
+        if: ${{ inputs.configuration.component_tests == true }}
         run: |
           echo 
           echo "Running component tests..."

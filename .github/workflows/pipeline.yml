@@ -46,14 +46,14 @@ jobs:
     uses: ./.github/workflows/component-tests.yml
     with:
       version: ${{ needs.build_candidate.outputs.version }}
-      skip: ${{ needs.read_config.outputs.json-config }}
+      configuration: ${{ needs.read_config.outputs.json-config }}
 
   dependency_tests:
     needs: [read_config, build_candidate]
     uses: ./.github/workflows/live-dependency-tests.yml
     with:
       version: ${{ needs.build_candidate.outputs.version }}
-      skip: ${{ needs.read_config.outputs.json_config }}
+      configuration: ${{ needs.read_config.outputs.json-config }}
 
   release:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
