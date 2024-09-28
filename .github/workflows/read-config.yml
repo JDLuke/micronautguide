@@ -6,7 +6,8 @@ on:
       json-config:
         description: Configuration for build (from config.yml)
         value: ${{ jobs.read-config.outputs.json-config }}
-
+        
+json-config="{\"config\":{\"dependency_tests\":false,\"component_tests\":false}}"
 
 jobs:
   read-config:
@@ -49,4 +50,6 @@ jobs:
 
       - name: Setup Environment
         id: env
-        run: echo "json-config=${{ steps.config.outputs.result }}" >> $GITHUB_OUTPUT
+        run: |
+          echo "json-config=${{ steps.config.outputs.result }}"
+          echo "json-config='${{ steps.config.outputs.result }}'" >> $GITHUB_OUTPUT
