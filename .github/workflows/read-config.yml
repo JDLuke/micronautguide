@@ -7,8 +7,6 @@ on:
         description: Configuration for build (from config.yml)
         value: ${{ jobs.read-config.outputs.json-config }}
         
-json-config="{\"config\":{\"dependency_tests\":false,\"component_tests\":false}}"
-
 jobs:
   read-config:
     runs-on: ubuntu-latest
