@@ -45,14 +45,12 @@ jobs:
     needs: [read_config, build_candidate]
     uses: ./.github/workflows/component-tests.yml
     with:
-      version: ${{ needs.build_candidate.outputs.version }}
       configuration: ${{ needs.read_config.outputs.json-config }}
 
   dependency_tests:
     needs: [read_config, build_candidate]
     uses: ./.github/workflows/live-dependency-tests.yml
     with:
-      version: ${{ needs.build_candidate.outputs.version }}
       configuration: ${{ needs.read_config.outputs.json-config }}
 
   release:
