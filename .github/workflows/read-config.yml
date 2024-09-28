@@ -21,9 +21,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-repo-${{ github.sha }}
       
-      - name: Display configuration file
-        run: cat config.yml
-
       - name: Install yaml library
         run: npm install js-yaml
 
