@@ -17,7 +17,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const environment = ${{ inputs.environment }};
+            const environment = '${{ inputs.environment }}';
             console.log("Environment: " + environment);
             core.setOutput('env', environment);
             try {
