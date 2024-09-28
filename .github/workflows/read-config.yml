@@ -48,5 +48,6 @@ jobs:
 
       - name: Setup Environment
         id: env
-        run: |
-          echo json-config=${{ steps.config.outputs.result }} >> $GITHUB_OUTPUT
+        with:
+          script: |
+            core.setOutput('json-config', ${{ steps.config.outputs.result }}
