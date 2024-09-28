@@ -47,15 +47,17 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const skip = JSON.stringify(${{ inputs.skip }};
-            console.log("Skip value: " + skip);
-            core.setOutput('skip', skip);
+            const configuration = JSON.parse(${{ inputs.configuration }});;
+            console.log('Parsed: ' + parsed);
+            console.log(parsed.component_tests);
+            console.log("Skip value: " + parsed.component_tests);
+            core.setOutput('skip', parsed.component_tests === true);
 
       - name: Test output
         run: echo ${{ steps.deserialize.outputs.skip }}
 
       - name: Run component tests
-        if: ${{ inputs.configuration.component_tests == true }}
+        if: ${{ steps.deserialize.outputs.skip == true }}
         run: |
           echo 
           echo "Running component tests..."
