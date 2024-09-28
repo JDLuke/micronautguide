@@ -50,4 +50,4 @@ jobs:
         id: env
         run: |
           echo "json-config=${{ steps.config.outputs.result }}"
-          echo "json-config='${{ steps.config.outputs.result }}'" >> $GITHUB_OUTPUT
+          echo "json-config=${{ steps.config.outputs.result }}" >> $GITHUB_OUTPUT
