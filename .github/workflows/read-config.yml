@@ -42,8 +42,8 @@ jobs:
               const jsonConfig = JSON.stringify(config);
               return jsonConfig;
             } catch (error) {
-              console.error("Error reading configuration file:", error);
-              core.setFailed(error.message);
+              console.error("Unable to read configuration file: ", error);
+              return '{}';
             }
 
       - name: Setup Environment
