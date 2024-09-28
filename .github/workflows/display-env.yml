@@ -17,12 +17,12 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const environment = '${{ inputs.environment }}';
+            const environment = ${{ inputs.environment }};
             console.log("Environment: " + environment);
             core.setOutput('env', environment);
             try {
               const parsed = JSON.parse(environment);
-              console.log(parsed);
+              console.log('Parsed: ' + parsed);
             } catch (error) {
               console.error("Error parsing JSON:", error);
               core.setFailed(error.message);
