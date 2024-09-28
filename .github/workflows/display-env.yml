@@ -23,6 +23,8 @@ jobs:
             try {
               const parsed = JSON.parse(environment);
               console.log('Parsed: ' + parsed);
+              console.log(parsed.dependency_tests);
+              console.log(parsed.component_tests);
             } catch (error) {
               console.error("Error parsing JSON:", error);
               core.setFailed(error.message);
