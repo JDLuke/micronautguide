@@ -40,5 +40,5 @@ jobs:
         id: script-env
         env:
           environment: '${{ inputs.environment }}'
-        run: node js/displayEnvironment.js
+        run: node $GITHUB_ACTION_PATH/js/displayEnvironment.js
 
