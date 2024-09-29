@@ -7,7 +7,7 @@ try {
     console.log('Parsed: ' + parsed);
     for(let key in parsed) {
         if (parsed.hasOwnProperty(key)) {
-            console.log(key + ': ' + obj[key]);
+            console.log(key + ': ' + parsed[key]);
         }
     }
 } catch (error) {
