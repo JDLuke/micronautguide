@@ -31,3 +31,11 @@ jobs:
               console.error("Error parsing JSON:", error);
               core.setFailed(error.message);
             }
+
+      - name: Display environment with external script
+        id: script-env
+        env:
+          environment: '${{ inputs.environment }}'
+        run: node .github/js/displayEnvironment.js
+
+
