@@ -23,12 +23,9 @@ jobs:
             try {
               const parsed = JSON.parse(environment);
               console.log('Parsed: ' + parsed);
-              for (const [key, value] of Object.entries(output.config)) {
+              for (const [key, value] of Object.entries(parsed.config)) {
                 console.log(key + ': ' + value);
               }
-              console.log(parsed.dependency_tests);
-              console.log(parsed.component_tests);
-              
             } catch (error) {
               console.error("Error parsing JSON:", error);
               core.setFailed(error.message);
