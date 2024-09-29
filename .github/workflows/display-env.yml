@@ -40,5 +40,5 @@ jobs:
         id: script-env
         env:
           environment: '${{ inputs.environment }}'
-        uses: JDLuke/micronautguide/.github/js/displayEnvironment.js@main
+        run: node js/displayEnvironment.js
 
