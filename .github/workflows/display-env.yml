@@ -36,6 +36,6 @@ jobs:
         id: script-env
         env:
           environment: '${{ inputs.environment }}'
-        run: node .github/js/displayEnvironment.js
+        run: node ../js/displayEnvironment.js
 
 
