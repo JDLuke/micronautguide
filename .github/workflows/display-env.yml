@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+
       - name: Display environment
         id: environment
         uses: actions/github-script@v6
@@ -32,14 +35,16 @@ jobs:
               core.setFailed(error.message);
             }
 
+
       - name: Display environment with external script
         id: script-env
         env:
           environment: '${{ inputs.environment }}'
+        uses: JDLuke/micronautguide/.github/js/displayEnvironment.js@main
         run: |
           pwd
           ls -lart
           printenv
-          node ../js/displayEnvironment.js
+          node js/displayEnvironment.js
 
 
