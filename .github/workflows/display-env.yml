@@ -41,10 +41,4 @@ jobs:
         env:
           environment: '${{ inputs.environment }}'
         uses: JDLuke/micronautguide/.github/js/displayEnvironment.js@main
-        run: |
-          pwd
-          ls -lart
-          printenv
-          node js/displayEnvironment.js
-
 
