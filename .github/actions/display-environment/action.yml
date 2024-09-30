@@ -1,4 +1,4 @@
-name: 'My Custom Action'
+name: 'Display Environment'
 description: 'A custom action to perform a specific task'
 inputs:
   environment:
