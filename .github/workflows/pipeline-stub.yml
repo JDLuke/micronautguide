@@ -17,7 +17,7 @@ jobs:
 
   display_environment:
     needs: read_config
-    uses: ./.github/workflows/display-env.yml
+    uses: ./.github/actions/display-environment/action.yml
     with:
       environment: ${{ needs.read_config.outputs.json-config }}
 
