@@ -35,10 +35,12 @@ jobs:
               core.setFailed(error.message);
             }
 
+      - name: Set up environment
+        run: npm ci
 
       - name: Display environment with action
         id: script-env
         uses: JDLuke/micronautguide/.github/actions/display-environment@main
-        env:
+        with:
           environment: '${{ inputs.environment }}'
 
