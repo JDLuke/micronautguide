@@ -1,0 +1,9 @@
+name: 'My Custom Action'
+description: 'A custom action to perform a specific task'
+inputs:
+  environment:
+    description: 'Configured environment'
+    required: true
+runs:
+  using: 'node20'
+  main: 'index.js'

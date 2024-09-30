@@ -36,9 +36,9 @@ jobs:
             }
 
 
-      - name: Display environment with external script
+      - name: Display environment with action
         id: script-env
+        uses: JDLuke/micronautguide/.github/actions/display-environment@main
         env:
           environment: '${{ inputs.environment }}'
-        run: node $GITHUB_ACTION_PATH/js/displayEnvironment.js
 
