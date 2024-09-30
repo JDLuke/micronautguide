@@ -1,4 +1,3 @@
-// const environment = '${{ inputs.environment }}';
 const core = require('@actions/core');
 
 const environment = core.getInput('environment');

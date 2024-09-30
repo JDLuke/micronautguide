@@ -36,7 +36,9 @@ jobs:
             }
 
       - name: Set up environment
-        run: npm ci
+        run: |
+          cd .github/actions/display-environment
+          npm ci
 
       - name: Display environment with action
         id: script-env
