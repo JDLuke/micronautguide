@@ -5,5 +5,11 @@ inputs:
     description: 'Configured environment'
     required: true
 runs:
-  using: 'node20'
-  main: 'index.js'
+  using: 'composite'
+  steps:
+    - name: Install dependencies
+      run: npm install @actions/core
+      shell: bash
+    - name: Run script
+      run: node index.js
+      shell: bash
