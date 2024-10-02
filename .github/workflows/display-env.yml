@@ -35,9 +35,4 @@ jobs:
               core.setFailed(error.message);
             }
 
-      - name: Set up environment
-        run: |
-          cd .github/actions/display-environment
-          npm install @actions/core
-
 
