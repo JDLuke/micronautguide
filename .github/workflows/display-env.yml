@@ -40,9 +40,4 @@ jobs:
           cd .github/actions/display-environment
           npm install @actions/core
 
-      - name: Display environment with action
-        id: script-env
-        uses: JDLuke/micronautguide/.github/actions/display-environment@main
-        with:
-          environment: '${{ inputs.environment }}'
 
