@@ -2,6 +2,10 @@ name: Release Candidate Build
 
 on:
   workflow_call:
+    inputs:
+      configuration:
+        required: true
+        type: string
     outputs:
       version:
         description: Updated version for new release
@@ -36,6 +40,7 @@ jobs:
           cache: maven
 
       - name: Bump version
+        if: ${{ inputs.configuration.bump_version != false }}
         id: bump
         uses: mickem/gh-action-bump-maven-version@v1
         with:

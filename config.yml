@@ -1,2 +1,4 @@
 dependency_tests: false
 component_tests: false
+bump_version: false
+create_release: false

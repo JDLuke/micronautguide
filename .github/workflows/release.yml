@@ -25,6 +25,7 @@ jobs:
           path: target/
 
       - name: Create GitHub Release
+        if: ${{ inputs.configuration.create_release != false }}
         id: create_release
         uses: actions/create-release@v1
         env:
