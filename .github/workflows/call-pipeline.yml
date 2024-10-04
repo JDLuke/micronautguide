@@ -12,4 +12,4 @@ permissions:
 
 jobs:
   run-pipeline:
-    uses: JDLuke/cicd/.github/workflows/pipeline.yml
+    uses: JDLuke/cicd/.github/workflows/pipeline.yml@main
