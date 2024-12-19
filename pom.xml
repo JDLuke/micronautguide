@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>example.micronaut</groupId>
     <artifactId>micronautguide</artifactId>
-    <version>0.1.70</version>
+    <version>0.1.71</version>
     <packaging>${packaging}</packaging>
 
     <parent>
@@ -94,7 +94,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.11.2</version>
+            <version>5.11.3</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -163,7 +163,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.5.1</version>
+                    <version>3.5.2</version>
                     <configuration>
                         <includes>
                             <include>unit/**/*Test.java</include>
